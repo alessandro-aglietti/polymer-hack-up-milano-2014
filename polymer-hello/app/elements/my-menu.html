@@ -8,7 +8,7 @@
           <li><a href="../my-element-test.html">my-element-test</a></li>
           <li><a href="../my-element-test-clean.html">my-element-test-clean</a></li>
         </ul>
-        <h3 class="text-muted">polymer hello, {{bindthis}}</h3>
+        <h3 id="bindthis" class="text-muted">polymer hello, {{bindthis}}</h3>
       </div>
   </template>
   <script>
@@ -24,6 +24,7 @@
 				
 				setTimeout(function(thiss) {
 					thiss.bindthis = "readybind after 3s";
+					thiss.$.bindthis.style.color = "red";
 					}, 3000, this);
 				}
 			});
