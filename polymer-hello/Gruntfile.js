@@ -24,6 +24,13 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+	  // GRUNT NOTIFY
+	  notify_hooks: {
+		    options: {
+		      enabled: true,
+		      success: true, // whether successful grunt executions should be notified automatically
+		    }
+		  },
 
     // Project settings
     config: config,
@@ -327,6 +334,8 @@ module.exports = function (grunt) {
       ]
     }
   });
+  
+
 
 
   grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
@@ -387,4 +396,10 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+  
+//Load the task
+  grunt.loadNpmTasks('grunt-notify');
+  
+//This is required if you use any options.
+  grunt.task.run('notify_hooks');
 };
