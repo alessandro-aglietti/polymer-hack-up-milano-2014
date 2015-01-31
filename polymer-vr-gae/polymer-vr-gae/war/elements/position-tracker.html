@@ -1,0 +1,111 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="position-tracker" attributes="targetlat targetlon callback distance debug">
+
+  <template>
+    <style>
+		  #mappa {
+        width: 320px;
+        height: 320px;
+        background-color: #000000;
+        margin-top: 10px ;
+        display:none;
+      }
+      .testi {
+        background-color: gray;
+        padding: 10px;
+        display:none;
+      }
+		</style>
+  	<div id="messaggio" class="testi"></div>
+    <div id="mappa"></div>
+  </template>
+  <script>
+		Polymer({
+		  targetlat: 45.464098,
+      targetlon: 9.191926,
+      callback: function(){},
+      distance: 0,
+      debug: false,
+      currlat: 0,
+      currlon: 0,
+      positionNum: 0,
+      that: this,
+
+
+
+			showMessage: function(s) {
+        if (this.debug) {
+          this.$.messaggio.innerHTML = s;
+        }
+        console.info(s);
+      },
+
+      calculateDistance: function(lat1, lon1, lat2, lon2) {
+        var R = 6371; // km
+        var dLat = (lat2 - lat1).toRad();
+        var dLon = (lon2 - lon1).toRad();
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+      },
+
+      positionSuccess: function(position) {
+        this.positionNum++;
+        this.currlat = position.coords.latitude;
+        this.currlon = position.coords.longitude;
+        this.$.mappa.style.backgroundImage =
+            'url(https://maps.googleapis.com/maps/api/staticmap?center=' +
+            this.currlat + ',' + this.currlon +
+            '&zoom=17&size=320x320&markers=color:blue%7Clabel:TU%7C' +
+            this.currlat + ',' + this.currlon +')';
+        this.distance = Math.floor(this.calculateDistance(this.currlat,
+            this.currlon, this.targetlat, this.targetlon) * 1000);
+        this.showMessage('La tua posizione corrente: ' +
+              this.currlat + ', ' + this.currlon + ' (' + this.positionNum +
+              ')<br>Distanza dal target: ' + this.distance + 'm');
+        this.callback(this.distance);
+      },
+
+      positionError: function(error) {
+        this.showMessage('Errore: ' + error.code);
+      },
+
+      created : function() {
+				//
+			},
+			ready : function() {
+  			//
+  			if (this.debug) {
+  			  this.$.messaggio.style.display = 'block';
+  			  this.$.mappa.style.display = 'block';
+  			}
+	  		if (!navigator.geolocation) {
+          this.showMessage('Il tuo browser non supporta la geolocalizzazione');
+          exit();
+        } else {
+          this.showMessage('Ok, la geolocalizzazione e\' supportata');
+        }
+        var that = this;
+        navigator.geolocation.watchPosition(
+          function(position) {
+            that.positionSuccess(position);
+          },
+          function(error) {
+            that.positionError(error);
+          },
+          {maximumAge:600000, timeout:5000, enableHighAccuracy: true}
+        );
+			},
+	  });
+
+	  Number.prototype.toRad = function() {
+      return this * Math.PI / 180;
+    };
+
+		</script>
+
+</polymer-element>
