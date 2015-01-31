@@ -11,8 +11,8 @@
 <!-- 			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td> -->
 <!-- 		</tr> -->
 <!--   </table> -->
-  <my-video></my-video>
-  <position-tracker id="myTracker" debug="true" targetlan="40.758895" targetlon="-73.985131" distance="{{distance}}"/>
+  <my-video videofilter="{{videofilter}}"></my-video>
+  <position-tracker id="myTracker" debug="true" distance="{{distance}}"/>
   <style>
   	h1 {
   		margin-bottom: 0px;
@@ -25,9 +25,18 @@
   </template>
   <script>
 		Polymer({
+			videofilter : '',
 			distance : null,
+			distancePrev : 0,
 			distanceChanged : function() {
 				console.log("my-vr distanceChanged: " + this.distance);
+				var diff = Math.abs(distance - distancePrev);
+				if ( distancePrev > 0 && diff > 5 ) {
+					this.videofilter = 'grayscale(1)';
+				} else {
+					this.videofilter = '';
+				}
+				this.distancePrev = distance;
 			},
 			created : function() {
 				//...
