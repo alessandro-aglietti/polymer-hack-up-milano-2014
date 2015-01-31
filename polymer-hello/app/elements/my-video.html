@@ -42,9 +42,9 @@
 	  </tr>
 	</table>
 
-	<paper-toast id="toastDx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="60000"></paper-toast>
+	<paper-toast id="toastDx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="3600000"></paper-toast>
 
-	<paper-toast id="toastSx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="60000"/></paper-toast>
+	<paper-toast id="toastSx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="3600000"/></paper-toast>
 
   </template>
 
@@ -52,10 +52,15 @@
     Polymer({
 
     	// PUBBLIC
-
-		distance : 0,
+		distance : -1,
 		distanceChanged : function() {
-			this.toastTxt = "Distanza " + this.distance + "m.";
+			if (this.distance<0) {
+				this.toastTxt = "Calcolando posizione...";
+			} else if (this.distance<3) {
+				this.toastTxt = "Complimenti! Sei arrivato!";
+			} else {
+				this.toastTxt = "Distanza " + this.distance + "m.";
+			}
 		},
 
 		color: "#000000",
