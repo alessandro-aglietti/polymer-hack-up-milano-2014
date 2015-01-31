@@ -27,6 +27,8 @@
       callback: function(){},
       distance: 0,
       debug: false,
+      currlat: 0,
+      currlon: 0,
       positionNum: 0,
       that: this,
 
@@ -37,18 +39,6 @@
           this.$.messaggio.innerHTML = s;
         }
         console.info(s);
-      },
-
-      init: function() {
-        if (!navigator.geolocation) {
-          this.showMessage('Il tuo browser non supporta la geolocalizzazione');
-          exit();
-        } else {
-          this.showMessage('Ok, la geolocalizzazione e\' supportata');
-        }
-        navigator.geolocation.watchPosition(
-          this.positionSuccess, this.positionError,
-            {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
       },
 
       calculateDistance: function(lat1, lon1, lat2, lon2) {
@@ -64,19 +54,20 @@
       },
 
       positionSuccess: function(position) {
-        var myElement = document.getElementsByTagName('position-tracker')[0];
-        myElement.positionNum++;
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        myElement.$.mappa.style.backgroundImage =
+        this.positionNum++;
+        this.currlat = position.coords.latitude;
+        this.currlon = position.coords.longitude;
+        this.$.mappa.style.backgroundImage =
             'url(https://maps.googleapis.com/maps/api/staticmap?center=' +
-            lat + ',' + lon + '&zoom=17&size=320x320&markers=color:blue%7Clabel:TU%7C' +
-            lat + ',' + lon +')';
-        myElement.distance = Math.floor(myElement.calculateDistance(lat, lon,
-            myElement.targetlat, myElement.targetlon) * 1000);
-        myElement.showMessage('La tua posizione corrente: ' +
-              lat + ', ' + lon + ' (' + myElement.positionNum + ')<br>Distanza dal target: ' + myElement.distance + 'm');
-        myElement.callback(myElement.distance);
+            this.currlat + ',' + this.currlon +
+            '&zoom=17&size=320x320&markers=color:blue%7Clabel:TU%7C' +
+            this.currlat + ',' + this.currlon +')';
+        this.distance = Math.floor(this.calculateDistance(this.currlat,
+            this.currlon, this.targetlat, this.targetlon) * 1000);
+        this.showMessage('La tua posizione corrente: ' +
+              this.currlat + ', ' + this.currlon + ' (' + this.positionNum +
+              ')<br>Distanza dal target: ' + this.distance + 'm');
+        this.callback(this.distance);
       },
 
       positionError: function(error) {
@@ -92,7 +83,22 @@
   			  this.$.messaggio.style.display = 'block';
   			  this.$.mappa.style.display = 'block';
   			}
-	  		this.init();
+	  		if (!navigator.geolocation) {
+          this.showMessage('Il tuo browser non supporta la geolocalizzazione');
+          exit();
+        } else {
+          this.showMessage('Ok, la geolocalizzazione e\' supportata');
+        }
+        var that = this;
+        navigator.geolocation.watchPosition(
+          function(position) {
+            that.positionSuccess(position);
+          },
+          function(error) {
+            that.positionError(error);
+          },
+          {maximumAge:600000, timeout:5000, enableHighAccuracy: true}
+        );
 			},
 	  });
 
