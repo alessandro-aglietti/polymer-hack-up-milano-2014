@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="my-geo.html">
 <link rel="import" href="my-video.html">
+<link rel="import" href="position-tracker.html">
 
 <polymer-element name="my-vr">
   <template>
@@ -11,7 +12,7 @@
 <!-- 		</tr> -->
 <!--   </table> -->
   <my-video></my-video>
-  <my-geo lat="0" lng="0" distance="{{distance}}"></my-geo>
+  <position-tracker id="myTracker" debug="true" targetlan="40.758895" targetlon="-73.985131" distance="{{distance}}"/>
   <style>
   	h1 {
   		margin-bottom: 0px;
