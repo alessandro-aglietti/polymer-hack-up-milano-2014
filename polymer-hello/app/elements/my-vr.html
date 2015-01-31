@@ -31,9 +31,9 @@
 			distanceChanged : function() {
 				console.log("my-vr distanceChanged: " + this.distance);
 				var diff = this.distance - this.distancePrev;
-				if ( this.distancePrev > 0 && diff > 5 ) {
+				if ( diff > 2 ) {
 					this.color = 'red';
-				} else if ( this.distancePrev > 0 && diff < -5 ){
+				} else if ( diff < -2 ){
 					this.color = 'green';
 				} else {
 					this.color = 'yellow';
