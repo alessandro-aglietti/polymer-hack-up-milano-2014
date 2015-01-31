@@ -15,6 +15,10 @@ https://github.com/yeoman/generator-polymer
 npm install -g generator-polymer
 yo polymer
 
+====== h5bp/generator-h5bp
+https://github.com/h5bp/generator-h5bp
+npm install --global generator-h5bp
+yo h5bp
 
 ====== Remote Debugging on Android with Chrome
 https://developer.chrome.com/devtools/docs/remote-debugging
