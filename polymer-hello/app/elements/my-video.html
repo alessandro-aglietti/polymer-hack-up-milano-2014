@@ -1,0 +1,99 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<polymer-element name="my-video">
+
+  <template>
+  	<style>
+
+	    paper-toast {
+	  		position: absolute;
+	  		top: 0;
+	  		left: auto;
+	  		width: 50%;
+	  		height: 100px;
+
+	  		background: linear-gradient({{color}}, transparent);
+	  		opacity: 0.6;
+	  		font-size: xx-large;
+			text-align: center;
+			font-family: monospace;
+	  		box-shadow: none;
+		}
+
+		#toastDx {
+			right: 0;
+		}
+
+		#toastSx {
+			left: 0;
+		}
+
+  	</style>
+
+	<table cellpadding="0" cellspacing="0" style="width: 100%">
+	  <tr>
+		<td width="50%">
+		  <video layout flex autoplay src="{{videosrc}}" width="100%" />
+		</td>
+		<td width="50%">
+		  <video layout flex autoplay src="{{videosrc}}" width="100%" />
+		</td>
+	  </tr>
+	</table>
+
+	<paper-toast id="toastDx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="60000"></paper-toast>
+
+	<paper-toast id="toastSx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="60000"/></paper-toast>
+
+  </template>
+
+  <script>
+    Polymer({
+
+    	// PUBBLIC
+
+		distance : 0,
+		distanceChanged : function() {
+			this.toastTxt = "Distanza " + this.distance + "m.";
+		},
+
+		color: "#000000",
+		colorChanged : function() {
+			console.log('Colore cambiato');
+		},
+
+		// PRIVATE
+
+	    videosrc : null,
+		videosrcChanged : function() {
+			this.distance = -1;
+		},
+
+		toastTxt : "Consenti l'utilizzo della fotocamera.",
+
+		ready : function() {
+			var thiss = this;
+
+			navigator.getUserMedia = navigator.getUserMedia
+                                  || navigator.webkitGetUserMedia
+                                  || navigator.mozGetUserMedia
+                                  || navigator.msGetUserMedia;
+
+			navigator.getUserMedia({
+				video : true,
+				audio : false
+			}, function(localMediaStream) {
+				thiss.videosrc = window.URL.createObjectURL(localMediaStream);
+			}, function(e) {
+				console.log('Error on video loading!', e);
+			});
+
+		}
+	});
+  </script>
+
+  <style>
+ 
+  </style>
+</polymer-element>

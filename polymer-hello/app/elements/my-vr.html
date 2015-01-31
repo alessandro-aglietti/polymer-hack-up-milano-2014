@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-geo.html">
+<link rel="import" href="my-video.html">
+
+<polymer-element name="my-vr">
+  <template>
+  <my-video></my-video>
+  <table cellpadding="0" cellspacing="0" style="width: 100%">
+		<tr>
+			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td>
+			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td>
+		</tr>
+  </table>
+  <my-geo lat="0" lng="0" distance="{{distance}}"></my-geo>
+  </template>
+  <script>
+		Polymer({
+			distance : null,
+			distanceChanged : function() {
+				console.log("my-vr distanceChanged: " + this.distance);
+			},
+			created : function() {
+				//...
+				console.log("my-vr created!");
+			},
+			ready : function() {
+				//...
+				console.log("my-vr ready!");
+			}
+			});
+		</script>
+</polymer-element>      
