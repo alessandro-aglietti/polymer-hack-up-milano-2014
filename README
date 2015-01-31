@@ -17,6 +17,15 @@ nodejs vs node on ubuntu 12.04
 http://stackoverflow.com/questions/18130164/nodejs-vs-node-on-ubuntu-12-04
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 
+====== Capturing Audio & Video in HTML5
+http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+
+====== Chrome Experiments for Virtual Reality
+https://vr.chromeexperiments.com/
+
+====== HTML5 Demos
+http://html5-demos.appspot.com/
+
 ====== yeoman/generator-polymer
 https://github.com/yeoman/generator-polymer
 npm install -g generator-polymer
