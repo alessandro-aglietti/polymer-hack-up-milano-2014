@@ -25,20 +25,20 @@
   </template>
   <script>
 		Polymer({
-			distance : null,
+			distance : 0,
 			distancePrev : 0,
 			color: '#000000',
 			distanceChanged : function() {
 				console.log("my-vr distanceChanged: " + this.distance);
-				var diff = distance - distancePrev;
-				if ( distancePrev > 0 && diff > 5 ) {
+				var diff = this.distance - this.distancePrev;
+				if ( this.distancePrev > 0 && diff > 5 ) {
 					this.color = 'red';
-				} else if ( distancePrev > 0 && diff < -5 ){
+				} else if ( this.distancePrev > 0 && diff < -5 ){
 					this.color = 'green';
 				} else {
 					this.color = 'yellow';
 				}
-				this.distancePrev = distance;
+				this.distancePrev = this.distance;
 			},
 			created : function() {
 				//...
