@@ -1,8 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<script src="tabletop.js"></script>
 
-<polymer-element name="position-tracker"
-    attributes="targetlat targetlon distance debug sheetkey targetfromsheet">
+<polymer-element name="position-tracker" attributes="targetlat targetlon callback distance debug">
 
   <template>
     <style>
@@ -26,13 +24,15 @@
 		Polymer({
 		  targetlat: 45.464098,
       targetlon: 9.191926,
-      targetfromsheet: false,
-      sheetkey: '1YHi5pUFSPOOmhi5uJxqyn7StsS3tAnw-_agjKXndHMU',
+      callback: function(){},
       distance: 0,
       debug: false,
       currlat: 0,
       currlon: 0,
       positionNum: 0,
+      that: this,
+
+
 
 			showMessage: function(s) {
         if (this.debug) {
@@ -67,6 +67,7 @@
         this.showMessage('La tua posizione corrente: ' +
               this.currlat + ', ' + this.currlon + ' (' + this.positionNum +
               ')<br>Distanza dal target: ' + this.distance + 'm');
+        this.callback(this.distance);
       },
 
       positionError: function(error) {
@@ -89,19 +90,6 @@
           this.showMessage('Ok, la geolocalizzazione e\' supportata');
         }
         var that = this;
-        if (this.targetfromsheet) {
-          Tabletop.init( { key: this.sheetkey,
-                           callback: function(data) {
-                             that.showInfo(data);
-                           },
-                           simpleSheet: true } );
-        } else {
-          this.startPollingPosition();
-        }
-      },
-
-      startPollingPosition: function() {
-        var that = this;
         navigator.geolocation.watchPosition(
           function(position) {
             that.positionSuccess(position);
@@ -111,17 +99,7 @@
           },
           {maximumAge:600000, timeout:5000, enableHighAccuracy: true}
         );
-      },
-
-      showInfo: function(data) {
-        // data comes through as a simple array since simpleSheet is turned on
-        console.log('Using data from sheet: ', data[0]);
-        this.targetlat = Number(data[0].lat);
-        this.targetlon = Number(data[0].lon);
-        this.startPollingPosition();
-        this.showMessage('Target coordinates from spreadsheet: ' +
-          data[0].name + ' (' + data[0].lat + ',' + data[0].lon +')');
-			}
+			},
 	  });
 
 	  Number.prototype.toRad = function() {

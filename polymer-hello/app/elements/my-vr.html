@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="my-geo.html">
 <link rel="import" href="my-video.html">
+<link rel="import" href="position-tracker.html">
 
 <polymer-element name="my-vr">
   <template>
@@ -10,8 +11,8 @@
 <!-- 			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td> -->
 <!-- 		</tr> -->
 <!--   </table> -->
-  <my-video></my-video>
-  <my-geo lat="0" lng="0" distance="{{distance}}"></my-geo>
+  <my-video distance="{{distance}}" color="{{color}}"></my-video>
+  <position-tracker id="myTracker" debug="true" distance="{{distance}}" targetfromsheet="true"/>
   <style>
   	h1 {
   		margin-bottom: 0px;
@@ -24,9 +25,20 @@
   </template>
   <script>
 		Polymer({
-			distance : null,
+			distance : 0,
+			distancePrev : 0,
+			color: '#000000',
 			distanceChanged : function() {
 				console.log("my-vr distanceChanged: " + this.distance);
+				var diff = this.distance - this.distancePrev;
+				if ( this.distancePrev > 0 && diff > 5 ) {
+					this.color = 'red';
+				} else if ( this.distancePrev > 0 && diff < -5 ){
+					this.color = 'green';
+				} else {
+					this.color = 'yellow';
+				}
+				this.distancePrev = this.distance;
 			},
 			created : function() {
 				//...
