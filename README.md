@@ -1,6 +1,8 @@
 # polymer-hack-up-milano-2014
+http://tinyurl.com/hackup
+
 ====== Setup
-bower install node
+install node
 npm install -g yo bower gulp
 sudo npm install -g grunt-cli
 npm install -g generator-webapp
@@ -33,6 +35,12 @@ http://webcomponents.org/
 
 Chrome is the gold standard. Google has been leading to effort to spec and implement web components.
 
+E' un insieme di quattro speicifiche:
+1) CUSTOM ELEMENTS
+2) HTML IMPORT
+3) SHADOW DOM
+4) TEMPLATE
+
 There are three major libraries for working with and extending web components:
 
 X-TAG
@@ -42,6 +50,12 @@ http://x-tags.org/
 POLYMER
 Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers.
 https://www.polymer-project.org
+Roba figa
+	- 2-WAY DATA BINDING (come in AngularJS)
+	- DECLARATIVE EVENT MAPPING (simile all'ng-click)
+	- POSSIBILITA' DI ESTENDERE ALTRI ELEMENTI (come in extend Java)
+	- OBSERVER SULLE PROPRIERTY se ho un attributo del model "pippo" e dichiaro "pippoChanged()" verrà invocata ogni volta
+	- PAPER ELEMENT layout material e responsive out-of-the-box
 
 BOSONIC
 Bosonic is a set of tools that enable you to build Web Components as the spec currently describes, and supporting not-so-modern browsers like IE9.
