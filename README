@@ -1,0 +1,115 @@
+# polymer-hack-up-milano-2014
+http://tinyurl.com/hackup
+
+====== Setup
+install node
+npm install -g yo bower gulp
+sudo npm install -g grunt-cli
+npm install -g generator-webapp
+
+mkdir my-yo-project
+cd my-yo-project
+yo webapp
+
+bower install --save Polymer/polymer
+
+nodejs vs node on ubuntu 12.04
+http://stackoverflow.com/questions/18130164/nodejs-vs-node-on-ubuntu-12-04
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+====== Capturing Audio & Video in HTML5
+http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+
+====== Chrome Experiments for Virtual Reality
+https://vr.chromeexperiments.com/
+
+====== HTML5 Demos
+http://html5-demos.appspot.com/
+
+====== yeoman/generator-polymer
+https://github.com/yeoman/generator-polymer
+npm install -g generator-polymer
+yo polymer
+
+====== h5bp/generator-h5bp
+https://github.com/h5bp/generator-h5bp
+npm install --global generator-h5bp
+yo h5bp
+Questo non ha i task grunt usare
+python -m SimpleHTTPServer
+
+====== Remote Debugging on Android with Chrome
+https://developer.chrome.com/devtools/docs/remote-debugging
+
+====== Modern Web Application Development Workflow - EclipseCon US 2014
+http://www.slideshare.net/sbegaudeau/modern-web-application-development-workflow
+
+====== Web Components
+http://en.wikipedia.org/wiki/Web_Components
+http://webcomponents.org/
+
+Chrome is the gold standard. Google has been leading to effort to spec and implement web components.
+
+E' un insieme di quattro speicifiche:
+1) CUSTOM ELEMENTS
+2) HTML IMPORT
+3) SHADOW DOM
+4) TEMPLATE
+
+There are three major libraries for working with and extending web components:
+
+X-TAG
+X-Tag is a small JavaScript library, created and supported by Mozilla, that brings Web Components Custom Element capabilities to all modern browsers.
+http://x-tags.org/
+
+POLYMER
+Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers.
+https://www.polymer-project.org
+Roba figa
+	- 2-WAY DATA BINDING (come in AngularJS)
+	- DECLARATIVE EVENT MAPPING (simile all'ng-click)
+	- POSSIBILITA' DI ESTENDERE ALTRI ELEMENTI (come in extend Java)
+	- OBSERVER SULLE PROPRIERTY se ho un attributo del model "pippo" e dichiaro "pippoChanged()" verrà invocata ogni volta
+	- PAPER ELEMENT layout material e responsive out-of-the-box
+
+BOSONIC
+Bosonic is a set of tools that enable you to build Web Components as the spec currently describes, and supporting not-so-modern browsers like IE9.
+http://bosonic.github.io/
+
+Polyfills!
+http://en.wikipedia.org/wiki/Polyfill
+All three libraries(Bosonic, Polymer, X-Tag) share and collaborate upon these polyfills, but each builds on them in a unique way.
+jQuery : DOM = X-Tag/Polymer/Bosonic : Web Components
+
+The components model allows for encapsulation and interoperability of individual HTML elements.
+Component-based software engineering
+http://en.wikipedia.org/wiki/Component-based_software_engineering
+
+- separation of concerns
+- event-driven architectures (EDA)
+
+====== Are We Componentized Yet?
+Tracking the progress of Web Components through standardisation, polyfillification, and implementation.
+http://jonrimmer.github.io/are-we-componentized-yet/
+Who made this?
+Jon Rimmer!
+http://blog.brillskills.com/
+https://twitter.com/jonrimmer
+https://pbs.twimg.com/profile_images/378800000034506381/3b42e7bd7ca2c111ec3f7e6e3f5e8c7a.jpeg
+
+
+====== Slides
+Web Components 101: An Introduction to Fundamental Changes in HTML
+http://webcomponents.org/presentations/components-101-intro-to-fundamental-changes-in-html/
+
+Don't stop thinking about tomorrow - AngularJS and Web Components
+http://webcomponents.org/presentations/dont-stop-thinking-about-tomorrow-angularjs-and-web-components/
+
+Yo Polymer: a new way of building web apps
+http://webcomponents.org/presentations/yo-polymer-at-dotjs/
+
+Building Mobile Web Applications With Brick
+http://webcomponents.org/presentations/building-mobile-web-applications-with-brick-at-full-frontal/
+
+The Web Platform's Cutting Edge
+http://webcomponents.org/presentations/the-web-platform-cutting-edge-at-google-io/

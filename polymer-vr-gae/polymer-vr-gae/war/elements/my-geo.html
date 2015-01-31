@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="my-geo" attributes="lat lng distance">
+  <template>
+  </template>
+  <script>
+		Polymer({
+			lat : 0,
+			lng: 0,
+			distance: null,
+			created : function() {
+				//...
+				console.log("my-geo created!");
+			},
+			distanceChanged : function() {
+				console.log("my-geo distanceChanged: " + this.distance);
+			},
+			ready : function() {
+				//...
+				console.log("my-geo ready!");
+				setInterval(function(thiss){
+					thiss.distance = Math.floor((Math.random() * 100) + 1);
+				}, 3000, this);
+			}
+			});
+  </script>
+</polymer-element>      
