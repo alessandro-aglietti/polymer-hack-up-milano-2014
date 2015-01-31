@@ -10,6 +10,11 @@
 					src="{{videosrc}}" width="100%" /></td>
 		</tr>
 	</table>
+	<style>
+		video {
+			height: auto;
+		}
+	</style>
 </template>
   <script>
 			Polymer({
@@ -36,21 +41,46 @@
 
 					var thiss = this;
 
-					// Not showing vendor prefixes.
-					navigator.getUserMedia({
-						video : true,
-						audio : false
-					}, function(localMediaStream) {
-						thiss.videosrc = window.URL
-								.createObjectURL(localMediaStream);
+					MediaStreamTrack.getSources(function(sourceInfos) {
+						var audioSource = null;
+						var videoSource = null;
+						
+						for (var i = 0; i != sourceInfos.length; ++i) {
+							var sourceInfo = sourceInfos[i];
+							if (sourceInfo.kind === 'audio') {
+								console.log(sourceInfo.id, sourceInfo.label
+										|| 'microphone');
 
-						// Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-						// See crbug.com/110938.
-						thiss.$.videoid.onloadedmetadata = function(e) {
-							// Ready to go. Do some stuff.
-							console.log('onloadedmetadata!');
-						};
-					}, errorCallback);
+								audioSource = sourceInfo.id;
+							} else if (sourceInfo.kind === 'video') {
+								console.log(sourceInfo.id, sourceInfo.label
+										|| 'camera');
+
+								videoSource = sourceInfo.id;
+							} else {
+								console.log('Some other kind of source: ',
+										sourceInfo);
+							}
+						}
+
+						// Not showing vendor prefixes.
+						navigator.getUserMedia({
+							video : {
+							      optional: [{sourceId: videoSource}]
+						    },
+							audio : false
+						}, function(localMediaStream) {
+							thiss.videosrc = window.URL
+									.createObjectURL(localMediaStream);
+
+							// Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+							// See crbug.com/110938.
+							/*thiss.$.videoid.onloadedmetadata = function(e) {
+								// Ready to go. Do some stuff.
+								console.log('onloadedmetadata!');
+							};*/
+						}, errorCallback);
+					});
 				}
 			});
 		</script>
