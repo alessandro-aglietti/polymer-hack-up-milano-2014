@@ -10,6 +10,9 @@ yo webapp
 
 bower install --save Polymer/polymer
 
+====== Remote Debugging on Android with Chrome
+https://developer.chrome.com/devtools/docs/remote-debugging
+
 ====== Modern Web Application Development Workflow - EclipseCon US 2014
 http://www.slideshare.net/sbegaudeau/modern-web-application-development-workflow
 
