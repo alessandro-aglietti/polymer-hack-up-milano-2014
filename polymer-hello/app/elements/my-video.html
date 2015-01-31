@@ -2,47 +2,56 @@
 
 <polymer-element name="my-video">
   <template>
-  	 <video id="videoid" src="{{videosrc}}" autoplay></video>
-  </template>
+	<table cellpadding="0" cellspacing="0" style="width: 100%">
+		<tr>
+			<td width="50%"><video layout flex autoplay
+					src="{{videosrc}}" width="100%" /></td>
+			<td width="50%"><video layout flex autoplay
+					src="{{videosrc}}" width="100%" /></td>
+		</tr>
+	</table>
+</template>
   <script>
-		Polymer({
-			videosrc: null,
-			videosrcChanged: function(){
-				console.log("videosrcChanged: " + this.videosrc);
-			},
-			created : function() {
-				//...
-				console.log("my-menu created!");
-			},
-			ready : function() {
-				//...
-				console.log("my-menu ready!");
-				
-				navigator.getUserMedia = navigator.getUserMedia
-				|| navigator.webkitGetUserMedia
-				|| navigator.mozGetUserMedia || navigator.msGetUserMedia;
+			Polymer({
+				videosrc : null,
+				videosrcChanged : function() {
+					console.log("videosrcChanged: " + this.videosrc);
+				},
+				created : function() {
+					//...
+					console.log("my-menu created!");
+				},
+				ready : function() {
+					//...
+					console.log("my-menu ready!");
 
-				var errorCallback = function(e) {
-					console.log('Reeeejected!', e);
-				};
-				
-				var thiss = this;
-		
-				// Not showing vendor prefixes.
-				navigator.getUserMedia({
-					video : true,
-					audio : false
-				}, function(localMediaStream) {
-					thiss.videosrc = window.URL.createObjectURL(localMediaStream);
-		
-					// Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-					// See crbug.com/110938.
-					thiss.$.videoid.onloadedmetadata = function(e) {
-						// Ready to go. Do some stuff.
-						console.log('onloadedmetadata!');
+					navigator.getUserMedia = navigator.getUserMedia
+							|| navigator.webkitGetUserMedia
+							|| navigator.mozGetUserMedia
+							|| navigator.msGetUserMedia;
+
+					var errorCallback = function(e) {
+						console.log('Reeeejected!', e);
 					};
-				}, errorCallback);
-			}
+
+					var thiss = this;
+
+					// Not showing vendor prefixes.
+					navigator.getUserMedia({
+						video : true,
+						audio : false
+					}, function(localMediaStream) {
+						thiss.videosrc = window.URL
+								.createObjectURL(localMediaStream);
+
+						// Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+						// See crbug.com/110938.
+						thiss.$.videoid.onloadedmetadata = function(e) {
+							// Ready to go. Do some stuff.
+							console.log('onloadedmetadata!');
+						};
+					}, errorCallback);
+				}
 			});
 		</script>
 </polymer-element>      
