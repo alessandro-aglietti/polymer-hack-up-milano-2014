@@ -1,41 +1,89 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
-<polymer-element name="my-video" attributes="videofilter">
+<polymer-element name="my-video" attributes="distance color">
+
   <template>
-	<table cellpadding="0" cellspacing="0" style="width: 100%">
-		<tr>
-			<td width="50%"><video layout flex autoplay
-					src="{{videosrc}}" width="100%" /></td>
-			<td width="50%"><video layout flex autoplay
-					src="{{videosrc}}" width="100%" /></td>
-		</tr>
-	</table>
-	<style>
-		video {
-			height: auto;
-			filter: {{videofilter}};
-		}
-	</style>
-</template>
-  <script>
-			Polymer({
-				videofilter : '',
-				videosrc : null,
-				videosrcChanged : function() {
-					console.log("videosrcChanged: " + this.videosrc);
-				},
-				created : function() {
-					//...
-					console.log("my-menu created!");
-				},
-				ready : function() {
-					//...
-					console.log("my-menu ready!");
+  	<style>
 
-					navigator.getUserMedia = navigator.getUserMedia
-							|| navigator.webkitGetUserMedia
-							|| navigator.mozGetUserMedia
-							|| navigator.msGetUserMedia;
+	    paper-toast {
+	  		position: absolute;
+	  		top: 0;
+	  		left: auto;
+	  		width: 50%;
+	  		height: 100px;
+
+	  		background: linear-gradient({{color}}, transparent);
+	  		opacity: 0.6;
+	  		font-size: xx-large;
+			text-align: center;
+			font-family: monospace;
+	  		box-shadow: none;
+		}
+
+		#toastDx {
+			right: 0;
+		}
+
+		#toastSx {
+			left: 0;
+		}
+
+  	</style>
+
+	<table cellpadding="0" cellspacing="0" style="width: 100%">
+	  <tr>
+		<td width="50%">
+		  <video layout flex autoplay src="{{videosrc}}" width="100%" />
+		</td>
+		<td width="50%">
+		  <video layout flex autoplay src="{{videosrc}}" width="100%" />
+		</td>
+	  </tr>
+	</table>
+
+	<paper-toast id="toastDx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="3600000"></paper-toast>
+
+	<paper-toast id="toastSx" text="{{toastTxt}}" autoCloseDisabled="true" opened="true" duration="3600000"/></paper-toast>
+
+  </template>
+
+  <script>
+    Polymer({
+
+    	// PUBBLIC
+		distance : -1,
+		distanceChanged : function() {
+			if (this.distance<0) {
+				this.toastTxt = "Calcolando posizione...";
+			} else if (this.distance<3) {
+				this.toastTxt = "Complimenti! Sei arrivato!";
+			} else {
+				this.toastTxt = "Distanza " + this.distance + "m.";
+			}
+		},
+
+		color: "#000000",
+		colorChanged : function() {
+			console.log('Colore cambiato');
+		},
+
+		// PRIVATE
+
+	    videosrc : null,
+		videosrcChanged : function() {
+			this.distance = -1;
+		},
+
+		toastTxt : "Consenti l'utilizzo della fotocamera.",
+
+		ready : function() {
+			var thiss = this;
+
+			navigator.getUserMedia = navigator.getUserMedia
+                                  || navigator.webkitGetUserMedia
+                                  || navigator.mozGetUserMedia
+                                  || navigator.msGetUserMedia;
 
 					var errorCallback = function(e) {
 						console.log('Reeeejected!', e);
@@ -85,5 +133,10 @@
 					});
 				}
 			});
-		</script>
-</polymer-element>      
+
+  </script>
+
+  <style>
+ 
+  </style>
+</polymer-element>
