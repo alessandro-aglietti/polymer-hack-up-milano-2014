@@ -13,6 +13,10 @@ yo webapp
 
 bower install --save Polymer/polymer
 
+nodejs vs node on ubuntu 12.04
+http://stackoverflow.com/questions/18130164/nodejs-vs-node-on-ubuntu-12-04
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
 ====== yeoman/generator-polymer
 https://github.com/yeoman/generator-polymer
 npm install -g generator-polymer
@@ -22,6 +26,8 @@ yo polymer
 https://github.com/h5bp/generator-h5bp
 npm install --global generator-h5bp
 yo h5bp
+Questo non ha i task grunt usare
+python -m SimpleHTTPServer
 
 ====== Remote Debugging on Android with Chrome
 https://developer.chrome.com/devtools/docs/remote-debugging
