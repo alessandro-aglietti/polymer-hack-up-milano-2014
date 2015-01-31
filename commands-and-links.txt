@@ -10,6 +10,12 @@ yo webapp
 
 bower install --save Polymer/polymer
 
+====== yeoman/generator-polymer
+https://github.com/yeoman/generator-polymer
+npm install -g generator-polymer
+yo polymer
+
+
 ====== Remote Debugging on Android with Chrome
 https://developer.chrome.com/devtools/docs/remote-debugging
 
