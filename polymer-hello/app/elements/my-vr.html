@@ -4,14 +4,23 @@
 
 <polymer-element name="my-vr">
   <template>
+<!--   <table cellpadding="0" cellspacing="0" style="width: 100%"> -->
+<!-- 		<tr> -->
+<!-- 			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td> -->
+<!-- 			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td> -->
+<!-- 		</tr> -->
+<!--   </table> -->
   <my-video></my-video>
-  <table cellpadding="0" cellspacing="0" style="width: 100%">
-		<tr>
-			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td>
-			<td width="50%"><h1>Distance: <span>{{distance}}</span></h1></td>
-		</tr>
-  </table>
   <my-geo lat="0" lng="0" distance="{{distance}}"></my-geo>
+  <style>
+  	h1 {
+  		margin-bottom: 0px;
+  		font-size: 12px;
+  	}
+  	table {
+  		text-align: center;
+  	}
+  </style>
   </template>
   <script>
 		Polymer({

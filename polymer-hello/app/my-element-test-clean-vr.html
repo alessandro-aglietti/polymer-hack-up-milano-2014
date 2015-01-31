@@ -6,7 +6,13 @@
     <!-- 2. Load the component using an HTML Import -->
     <link rel="import" href="elements/my-vr.html">
   </head>
-  <body>
+  <body onclick="fullscreen()">
     <my-vr></my-vr>
+    <script>
+      function fullscreen(){
+    	  document.body.webkitRequestFullScreen();
+    	  alert("fullscreen");
+      }
+    </script>
   </body>
 </html>
