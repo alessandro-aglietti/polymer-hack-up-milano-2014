@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="my-menu">
+  <template>
+  	 <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="../my-element-test.html">my-element-test</a></li>
+          <li><a href="../my-element-test-clean.html">my-element-test-clean</a></li>
+        </ul>
+        <h3 id="bindthis" class="text-muted">polymer hello, {{bindthis}}</h3>
+      </div>
+  </template>
+  <script>
+		Polymer({
+			bindthis: 'bindthis',
+			created : function() {
+				//...
+				console.log("my-menu created!");
+			},
+			ready : function() {
+				//...
+				console.log("my-menu ready!");
+				
+				setTimeout(function(thiss) {
+					thiss.bindthis = "readybind after 3s";
+					thiss.$.bindthis.style.color = "red";
+					}, 3000, this);
+				}
+			});
+		</script>
+</polymer-element>
+
+
+
+      
